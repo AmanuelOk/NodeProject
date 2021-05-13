@@ -1,0 +1,20 @@
+{
+  "name": "nodejstask",
+  "version": "1.0.0",
+  "description": "This app will expose rest api end point, modify required file and upload it to aws s3",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ./main/main.js",
+    "test": "test"
+  },
+  "author": "Amanuel G. okubamichael",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.3",
+    "aws-sdk": "^2.905.0",
+    "axios": "^0.21.1",
+    "csvtojson": "^2.0.0",
+    "json-2-csv": "^3.11.1",
+    "nodemon": "^2.0.7"
+  }
+}
