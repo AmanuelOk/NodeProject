@@ -8,21 +8,23 @@ axios({
   }).then((response) => {
     const pureObj = response.data;
     let dataArray =[];
+    let filteredData =[];
     const arr = new Array();
-    pureObj.data.stations.filter((el) => el.capacity > 12).forEach((element, i)=> {
-    if(pureObj.data.stations[i].rental_methods != undefined){
-    delete pureObj.data.stations[i].rental_methods;}
-    if(pureObj.data.stations[i].rental_uris != undefined){
-    delete pureObj.data.stations[i].rental_uris;}
-   rename(pureObj.data.stations[i], 'external_id', 'externalId')
-   rename(pureObj.data.stations[i], 'station_id', 'stationId')
-   rename(pureObj.data.stations[i], 'legacy_id', 'legacyId')
-   dataArray = Object.keys(pureObj.data.stations[i]).map((k) => {return pureObj.data.stations[i][k]});
+    filteredData = pureObj.data.stations.filter((el) => el.capacity > 12);
+    filteredData.forEach((element, i)=> {
+    if(filteredData[i].rental_methods != undefined){
+    delete filteredData[i].rental_methods;}
+    if(filteredData[i].rental_uris != undefined){
+    delete filteredData[i].rental_uris;}
+   rename(filteredData[i], 'external_id', 'externalId')
+   rename(filteredData[i], 'station_id', 'stationId')
+   rename(filteredData[i], 'legacy_id', 'legacyId')
+   dataArray = Object.keys(filteredData[i]).map((k) => {return filteredData[i][k]});
    arr.push(dataArray.join(','));
-   arr.push('<break>')
+   arr.push('\n');
 }); 
-arr.unshift('/n')
-arr.unshift(Object.keys(pureObj.data.stations[0]).join(','));
+arr.unshift('\n')
+arr.unshift(Object.keys(filteredData[0]).join(','));
 
 writeFile('./output_.txt',arr, 'utf8', (err) => {
     if(err){console.log(err); throw err;}
